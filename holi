@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+    <title>STW76</title>
+    <style>
+        .rating {
+            unicode-bidi: bidi-override;
+            direction: rtl;
+            text-align: center;
+        }
+        .rating > span {
+            display: inline-block;
+            position: relative;
+            width: 5.3em;
+          color:blue
+        }
+        .rating > span:hover:before,
+        .rating > span:hover ~ span:before {
+            content: "\2605";
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div class="rating">
+        <span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span>
+    </div>
+    <div
+ .
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  /* Estilos para el cuadrado */
+  .cuadrado {
+    width: 50px;
+    height: 50px;
+    background-color: blue;
+    position: relative;
+    animation: mover 7.1s linear infinite ;
+  }
+
+  /* Animación */
+  @keyframes mover {
+    0% {
+      left: 0;
+    }
+    50% {
+      left: calc(100% - 50px);
+    }
+    100% {
+      left: 0;
+    }
+  }
+</style>
+<body>
+
+<div class="cuadrado"></div>
+
+</body>
+</html>
+  .
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Art Animation</title>
+    <style>
+        /* Estilos opcionales para el contenedor */
+        #ascii-container {
+            font-family: monospace;
+            font-size: 20px;
+            white-space: pre;
+        }
+    </style>
+</head>
+<body>
+    <div id="ascii-container">
+        <pre id="ascii1">
+             ,
+            /|      __
+           / |   ,-~ /
+          Y :|  //  /
+          | jj /( .^
+          >-"~"-v"
+         /       Y
+        jo  o    |
+       ( ~T~     j
+        >._-' _./
+       /   "~"  |
+      Y     _,  |
+     /| ;-"~ _  l
+    / l/ ,-"~    \
+    \//\/      .- \
+     Y        /    Y    
+     l       I     !
+     ]\      _\    /"\
+    (" ~----( ~   Y.  )
+~~~~~~~~~~~~~~~~~~~~~~~~~
+        </pre>
+        <pre id="ascii2" style="display: none;">
+             ,\
+             \\\,_
+              \` ,\
+         __,.-" =__)
+       ."        )
+    ,_/   ,    \/\_
+    \_|    )_-\ \_-`
+       `-----` `--`
+        </pre>
+    </div>
+
+    <script>
+        // Obtener referencias a los elementos
+        const ascii1 = document.getElementById('ascii1');
+        const ascii2 = document.getElementById('ascii2');
+
+        // Función para alternar entre los ASCII arts
+        function animateASCII() {
+            ascii1.style.display = (ascii1.style.display === 'none') ? 'block' : 'none';
+            ascii2.style.display = (ascii2.style.display === 'none') ? 'block' : 'none';
+        }
+
+        // Ejecutar la animación cada cierto intervalo (por ejemplo, cada 1 segundo)
+        setInterval(animateASCII, 1000); // Cambia 1000 a la velocidad en milisegundos que prefieras
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dibujar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #gameCanvas {
+            border: 2px solid black;
+            margin: 20px auto;
+        }
+        #savedDrawings {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .drawing {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dibujar</h1>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div>
+      <button id=/"</button>
+        <button id="saveButton">Guardar Dibujo</button>
+        <button id="clearButton">Borrar</button>
+        <button id="clearCanvasButton">Borrar Canvas</button>
+        <input type="color" id="colorPicker" value="#000000">
+    </div>
+    <div id="savedDrawings"></div>
+
+    <script>
+        var canvas = document.getElementById('gameCanvas');
+        var ctx = canvas.getContext('2d');
+        var savedDrawingsContainer = document.getElementById('savedDrawings');
+        var saveButton = document.getElementById('saveButton');
+        var clearButton = document.getElementById('clearButton');
+        var clearCanvasButton = document.getElementById('clearCanvasButton');
+        var colorPicker = document.getElementById('colorPicker');
+        var isDrawing = false;
+        var lastX, lastY;
+
+        // Cargar dibujos guardados al cargar la página
+        window.onload = function() {
+            loadDrawings();
+        };
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('touchstart', startDrawingTouch);
+        canvas.addEventListener('touchmove', drawTouch);
+        canvas.addEventListener('touchend', stopDrawingTouch);
+
+        function startDrawing(event) {
+            isDrawing = true;
+            lastX = event.offsetX;
+            lastY = event.offsetY;
+        }
+
+        function draw(event) {
+            if (!isDrawing) return;
+            var currentX = event.offsetX;
+            var currentY = event.offsetY;
+            drawLine(lastX, lastY, currentX, currentY);
+            lastX = currentX;
+            lastY = currentY;
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        function startDrawingTouch(event) {
+            event.preventDefault();
+            isDrawing = true;
+            var touch = event.touches[0];
+            lastX = touch.clientX - canvas.offsetLeft;
+            lastY = touch.clientY - canvas.offsetTop;
+        }
+
+        function drawTouch(event) {
+            event.preventDefault();
+            if (!isDrawing) return;
+            var touch = event.touches[0];
+            var currentX = touch.clientX - canvas.offsetLeft;
+            var currentY = touch.clientY - canvas.offsetTop;
+            drawLine(lastX, lastY, currentX, currentY);
+            lastX = currentX;
+            lastY = currentY;
+        }
+
+        function stopDrawingTouch(event) {
+            event.preventDefault();
+            isDrawing = false;
+        }
+
+        function drawLine(startX, startY, endX, endY) {
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.strokeStyle = colorPicker.value;
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        saveButton.addEventListener('click', function() {
+            var drawingDataURL = canvas.toDataURL();
+            saveDrawing(drawingDataURL);
+        });
+
+        clearButton.addEventListener('click', function() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        clearCanvasButton.addEventListener('click', function() {
+            savedDrawingsContainer.innerHTML = '';
+            localStorage.clear();
+        });
+
+        function saveDrawing(drawingDataURL) {
+            var image = document.createElement('img');
+            image.src = drawingDataURL;
+            image.className = 'drawing';
+            savedDrawingsContainer.appendChild(image);
+            localStorage.setItem('drawings', savedDrawingsContainer.innerHTML);
+        }
+
+        function loadDrawings() {
+            var drawings = localStorage.getItem('drawings');
+            if (drawings) {
+                savedDrawingsContainer.innerHTML = drawings;
+            }
+        }
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+        
